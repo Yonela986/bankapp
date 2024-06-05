@@ -16,23 +16,23 @@ class RegForm:
         self.username_entry = tk.Entry(root)
         self.username_entry.grid(row=0, column=1, padx=5, pady=5)
 
-        # Password label and entry
-        self.password_label = tk.Label(root, text="Password:")
-        self.password_label.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
-        self.password_entry = tk.Entry(root, show="*")
-        self.password_entry.grid(row=1, column=1, padx=5, pady=5)
+        # # Password label and entry
+        # self.password_label = tk.Label(root, text="Password:")
+        # self.password_label.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
+        # self.password_entry = tk.Entry(root, show="*")
+        # self.password_entry.grid(row=1, column=1, padx=5, pady=5)
         
          # Create password button
         self.create_password_button = tk.Button(root, text="Create Password", command=self.create_password)
-        self.create_password_button.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky=tk.W+tk.E)
+        self.create_password_button.grid(row=0, column=3, columnspan=3, padx=7, pady=7, sticky=tk.W+tk.E)
         
         # Generate password button
         self.generate_password_button = tk.Button(root, text="Generate Password", command=self.generate_random_password)
-        self.generate_password_button.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky=tk.W+tk.E)
+        self.generate_password_button.grid(row=1, column=0, columnspan=2, padx=5, pady=5, sticky=tk.W+tk.E)
 
         # Login button
-        self.login_button = tk.Button(root, text="Login", command=self.login)
-        self.login_button.grid(row=3, column=0, padx=5, pady=5, sticky=tk.W)
+        self.register_button = tk.Button(root, text="Register", command=self.register)
+        self.register_button.grid(row=3, column=0, padx=5, pady=5, sticky=tk.W)
 
         # Clear button
         self.clear_button = tk.Button(root, text="Clear", command=self.clear_entries)
@@ -68,7 +68,7 @@ class RegForm:
         pattern = r'^[a-zA-Z0-9_]{4,20}$'
         return re.match(pattern, username)
 
-    def login(self):
+    def register(self):
         username = self.username_entry.get()
         entered_password = self.password_entry.get()
         
@@ -77,11 +77,11 @@ class RegForm:
         
         if self.validate_username(username):
             if bcrypt.checkpw(entered_password.encode(), hashed_password_from_database) or self.validate_password(entered_password):
-                messagebox.showinfo('Login', 'Login successful!')
+                messagebox.showinfo('Register', 'Register successful!')
             else:
-                messagebox.showerror('Login', 'Invalid username or password')
+                messagebox.showerror('Register', 'Invalid username or password')
         else:
-            messagebox.showerror('Login', 'Invalid username')
+            messagebox.showerror('Register', 'Invalid username')
 
     def clear_entries(self):
         self.username_entry.delete(0, tk.END)
@@ -89,7 +89,7 @@ class RegForm:
 
 # Create the main window
 root = tk.Tk()
-login_form = RegForm(root)
+register_form = RegForm(root)
 
 # Run the main event loop
 root.mainloop()
