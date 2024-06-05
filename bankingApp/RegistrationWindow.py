@@ -72,7 +72,6 @@ class RegForm:
         username = self.username_entry.get()
         entered_password = self.password_entry.get()
         
-        # Dummy authentication, replace with actual authentication logic
         # In a real-world application, retrieve the hashed password for the given username from the database
         hashed_password_from_database = b'$2b$12$E9OfQryI01plbgz8onmQSO.uMzx4NUQBFLfAUp5JhXbYI6jBdtTve'  # Example hashed password
         
