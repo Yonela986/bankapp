@@ -16,19 +16,13 @@ class RegForm:
         self.username_entry = tk.Entry(root)
         self.username_entry.grid(row=0, column=1, padx=5, pady=5)
 
-        # # Password label and entry
-        # self.password_label = tk.Label(root, text="Password:")
-        # self.password_label.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
-        # self.password_entry = tk.Entry(root, show="*")
-        # self.password_entry.grid(row=1, column=1, padx=5, pady=5)
-        
          # Create password button
         self.create_password_button = tk.Button(root, text="Create Password", command=self.create_password)
-        self.create_password_button.grid(row=0, column=3, columnspan=3, padx=7, pady=7, sticky=tk.W+tk.E)
+        self.create_password_button.grid(row=1, column=1, padx=5, pady=5)
         
         # Generate password button
         self.generate_password_button = tk.Button(root, text="Generate Password", command=self.generate_random_password)
-        self.generate_password_button.grid(row=1, column=0, columnspan=2, padx=5, pady=5, sticky=tk.W+tk.E)
+        self.generate_password_button.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky=tk.W+tk.E)
 
         # Login button
         self.register_button = tk.Button(root, text="Register", command=self.register)
