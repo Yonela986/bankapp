@@ -23,7 +23,7 @@ class RegForm:
         # Password label and entry
 
         self.password_label = tk.Label(root, text="Password:")
-        self.password_label.grid(row=1, column=0, pads=5, pady=5, sticky=tk.W)
+        self.password_label.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
         self.password_entry = tk.Entry(root)
         self.password_entry.grid(row=1, column=1, padx=5, pady=5)
 
