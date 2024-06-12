@@ -1,5 +1,15 @@
 {
     "cSpell.words": [
-        "pady"
+        "checkpw",
+        "columnspan",
+        "istockphoto",
+        "padx",
+        "pady",
+        "relheight",
+        "relwidth",
+        "relx"
+    ],
+    "python.analysis.extraPaths": [
+        "./pages"
     ]
 }
