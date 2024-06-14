@@ -1,3 +1,65 @@
+import tkinter as tk
+import random
+import string
+from tkinter import messagebox
+
+def generate_password():
+    """Generate a random password."""
+    password = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+    password_entry.delete(0, tk.END)
+    password_entry.insert(tk.END, password)
+
+def register():
+    username = username_entry.get()
+    email = email_entry.get()
+    password = password_entry.get()
+
+    # Check if any field is empty
+    if not (username and email and password):
+        messagebox.showerror("Error", "All fields are required!")
+        return
+
+    # Check email format
+    if not ("@" in email and "." in email):
+        messagebox.showerror("Error", "Invalid email address!")
+        return
+
+    # Save registration details (You can implement saving to a database here)
+
+    messagebox.showinfo("Success", "Registration successful!")
+    # Redirect to login page
+    # You can implement this using the .withdraw() method on the current window
+    # and then opening the login page window.
+
+# Create main window
+root = tk.Tk()
+root.title("Registration Page")
+
+# Username
+tk.Label(root, text="Username:").grid(row=0, column=0)
+username_entry = tk.Entry(root)
+username_entry.grid(row=0, column=1)
+
+# Email
+tk.Label(root, text="Email:").grid(row=1, column=0)
+email_entry = tk.Entry(root)
+email_entry.grid(row=1, column=1)
+
+# Password
+tk.Label(root, text="Password:").grid(row=2, column=0)
+password_entry = tk.Entry(root, show="*")
+password_entry.grid(row=2, column=1)
+
+# Generate password button
+generate_password_btn = tk.Button(root, text="Generate Password", command=generate_password)
+generate_password_btn.grid(row=2, column=2)
+
+# Register button
+register_btn = tk.Button(root, text="Register", command=register)
+register_btn.grid(row=3, column=0, columnspan=3)
+
+root.mainloop()
+
 # import tkinter as tk
 # from tkinter import messagebox, simpledialog
 # import re

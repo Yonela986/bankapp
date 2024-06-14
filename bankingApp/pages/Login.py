@@ -5,7 +5,7 @@ import re
 import string
 import secrets
 from tkinter import simpledialog
-import bcrypt
+import bcrypt # type: ignore
 
 class LoginPage(tk.Tk):
     def __init__(self):
@@ -122,18 +122,21 @@ class RegistrationPage:
         self.register_button = tk.Button(self.master, text="Register", command=self.register)
         self.register_button.grid(row=4, column=0, padx=5, pady=5, sticky=tk.W)
 
-        # Clear button
-        self.clear_button = tk.Button(self.master, text="Clear", command=self.clear_entries)
-        self.clear_button.grid(row=4, column=1, padx=5, pady=5, sticky=tk.E)
+     
 
-    def generate_random_password(self):
-        # Define the characters to use in the password
-        characters = string.ascii_letters + string.digits + string.punctuation
-        # Generate a random password with 12 characters
-        random_password = ''.join(secrets.choice(characters) for _ in range(12))
-        # Update the password entry with the generated password
-        self.password_entry.delete(0, tk.END)
-        self.password_entry.insert(0, random_password)
+    # def generate_random_password(self):
+    #     # Define the characters to use in the password
+    #     characters = string.ascii_letters + string.digits + string.punctuation
+    #     # Generate a random password with 12 characters
+    #     random_password = ''.join(secrets.choice(characters) for _ in range(12))
+    #     # Update the password entry with the generated password
+    #     self.password_entry.delete(0, tk.END)
+    #     self.password_entry.insert(0, random_password)
+def generate_random_password():
+    """Generate a random password."""
+    password = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+    password_entry.delete(0, tk.END)
+    password_entry.insert(tk.END, password)
 
     def create_password(self):
         new_password = simpledialog.askstring("Create Password", "Enter your password:", show="*")

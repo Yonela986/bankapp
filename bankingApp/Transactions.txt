@@ -1,0 +1,7 @@
+Deposit: +R1000.0
+Deposit: +R120.0
+Withdrawal: -R150.0
+Withdrawal: -R60.0
+Deposit: +R530.0
+Withdrawal: -R150.0
+Withdrawal: -R1000.0

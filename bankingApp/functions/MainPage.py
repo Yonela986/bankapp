@@ -1,3 +1,5 @@
+
+
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
@@ -54,6 +56,10 @@ class BankingApp(tk.Tk):
         self.withdraw_button = tk.Button(self.main_frame, text="Withdraw", command=self.open_withdrawal_page)
         self.withdraw_button.pack(pady=5)
 
+        # Transfer Button
+        self.transfer_button = tk.Button(self.main_frame, text="Transfer", command=self.update_balances)
+        self.transfer_button.pack(pady=5)
+        
         # Transaction Button
         self.transaction_button = tk.Button(self.main_frame, text="View Transactions", command=self.show_transactions)
         self.transaction_button.pack(pady=5)
@@ -135,6 +141,38 @@ class DepositPage(tk.Toplevel):
         self.master.update_balance(amount, "Withdrawal")
         self.destroy()
         
+accounts = {
+    'user1': {'balance': 1000},
+    'user2': {'balance': 500},
+}
+        
+def transfer_funds(from_account, to_account, amount):
+    if amount <= accounts[from_account]['balance']:
+        accounts[from_account]['balance'] -= amount
+        accounts[to_account]['balance'] += amount
+        messagebox.showinfo("Transfer Successful", f"Transferred {amount} to {to_account}")
+        update_balances()
+    else:
+        messagebox.showerror("Insufficient Funds", "You don't have enough balance for this transfer")
+
+def update_balances():
+    balance_label_user1.config(text=f"Balance: {accounts['user1']['balance']}") # type: ignore
+    balance_label_user2.config(text=f"Balance: {accounts['user2']['balance']}") # type: ignore
+
+def transfer(self):
+    from_account = self.from_account_entry.get()  
+    to_account = self.to_account_entry.get()     
+    amount = float(self.amount_entry.get())       
+
+    # Call the transfer_funds function with the entered values
+    transfer_funds(from_account, to_account, amount)
+    pass
+def update_balances():
+    # Update the balance labels in the UI with the new balances
+    balance_label_user1.config(text=f"Balance: {accounts['user1']['balance']}") # type: ignore
+    balance_label_user2.config(text=f"Balance: {accounts['user2']['balance']}") # type: ignore
+
+
 class TransactionWindow(tk.Toplevel):
     def __init__(self, master, transactions):
         super().__init__(master)
@@ -187,16 +225,7 @@ class DatabaseManager:
             for line in input_file:
                 transaction = line.strip().split(", ")
                 csv_writer.writerow(transaction)
-                
-                def download_transactions(self):
-        # Fetch transaction data from the database (dummy data for demonstration)
-                 transactions = [
-                 {"Date": "2024-06-01", "Description": "Supermarket", "Amount": "-R50.00"},
-                 {"Date": "2024-06-03", "Description": "Gas station", "Amount": "-R30.00"},
-                 {"Date": "2024-06-05", "Description": "Salary", "Amount": "R2000.00"}
-        ]
-
-        # Write transaction data to a CSV file
+                 # Write transaction data to a CSV file
         with open("Transactions.txt", "w", newline="") as csvfile:
             fieldnames = ["Date", "Description", "Amount"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
