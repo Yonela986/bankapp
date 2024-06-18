@@ -1,4 +1,4 @@
-
+import random
 import tkinter as tk
 from tkinter import ttk, messagebox
 import re
@@ -10,7 +10,7 @@ import bcrypt # type: ignore
 class LoginPage(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.configure(background="light blue") 
+        self.configure() 
         label = ttk.Label(self, text="Please Login", font=("Helvetica", 12, "bold"))
         label.pack(padx=10, pady=5)
 
@@ -28,14 +28,14 @@ class LoginPage(tk.Tk):
 
         # Create a style object
         self.style = ttk.Style()
-        self.style.configure("Background.TFrame", background="light blue")  # Set background color for the frame
+        self.style.configure("Background.TFrame")  # Set background color for the frame
 
         # Create the main frame with the configured style
         self.main_frame = ttk.Frame(self, style="Background.TFrame")
         self.main_frame.pack(fill=tk.BOTH, expand=True)
 
         # Configure other widget styles
-        self.style.configure("TLabel", font=("Helvetica", 12), background="light blue")  # Set background color for labels
+        self.style.configure("TLabel", font=("Helvetica", 12))  # Set background color for labels
         self.style.configure("TEntry", font=("Helvetica", 12))  # Set font for entry widgets
         self.style.configure("TButton", font=("Helvetica", 12))  # Set font for buttons
 
@@ -87,7 +87,7 @@ class LoginPage(tk.Tk):
       
     def forgot_password(self, event):
          messagebox.showinfo("Forgot Password", "Please contact support to reset your password.")
-    
+         reset_password_window = ResetPasswordWindow(self)
     def show_registration_page(self, event):
        messagebox.showinfo("Sign Up", "Redirecting to sign up page...")
        registration_window = tk.Toplevel(self)
@@ -135,8 +135,8 @@ class RegistrationPage:
 def generate_random_password():
     """Generate a random password."""
     password = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
-    password_entry.delete(0, tk.END)
-    password_entry.insert(tk.END, password)
+    password_entry.delete(0, tk.END) # type: ignore
+    password_entry.insert(tk.END, password) # type: ignore
 
     def create_password(self):
         new_password = simpledialog.askstring("Create Password", "Enter your password:", show="*")
@@ -179,6 +179,67 @@ def generate_random_password():
     def clear_entries(self):
         self.username_entry.delete(0, tk.END)
         self.password_entry.delete(0, tk.END)
+        
+class ResetPasswordWindow:
+    def __init__(self, master):
+        super().__init__(master)
+        self.master = master
+        self.pack()
+        self.create_widgets()
+        self.title("Reset Password")
+        self.geometry("300x250")
+        self.current_page = None
+        self.show_login_page()
+
+    def create_widgets(self):
+        self.label = tk.Label(self, text="Reset Password", font=("Helvetica", 16))
+        self.label.pack(pady=10)
+
+        self.new_password_label = tk.Label(self, text="New Password:")
+        self.new_password_label.pack()
+
+        self.new_password_entry = tk.Entry(self, show="*")
+        self.new_password_entry.pack(pady=5)
+
+        self.confirm_password_label = tk.Label(self, text="Confirm Password:")
+        self.confirm_password_label.pack()
+
+        self.confirm_password_entry = tk.Entry(self, show="*")
+        self.confirm_password_entry.pack(pady=5)
+
+        self.reset_button = tk.Button(self, text="Reset Password", command=self.reset_password)
+        self.reset_button.pack(pady=10)
+
+    def reset_password(self):
+        new_password = self.new_password_entry.get()
+        confirm_password = self.confirm_password_entry.get()
+       
+        if self.current_page:
+            self.current_page.destroy()
+            self.current_page = ResetPasswordWindow(self)
+            self.current_page.pack(fill=tk.BOTH, expand=True)
+
+        # Basic validation
+        if not new_password or not confirm_password:
+            messagebox.showerror("Error", "Please enter both new and confirm passwords.")
+            return
+
+        if new_password != confirm_password:
+            messagebox.showerror("Error", "Passwords do not match. Please try again.")
+            return
+
+  
+        print(f"Resetting password to: {new_password}")
+
+        # After resetting password, navigate back to Login page
+        self.master.show_login_page()
+        if self.current_page:
+         def show_login_page(self):
+            self.current_page.destroy()
+            # self.current_page = Login(self) # type: ignore
+            self.current_page.pack(fill=tk.BOTH, expand=True)
+
+  
 
 if __name__ == "__main__":
     app = LoginPage()
