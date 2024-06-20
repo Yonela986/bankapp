@@ -1,2 +1,5 @@
 Username: , Password: FVS3ZvDj
 Username: Admin, ID Number: 12345678910, Password: T4cbznWY
+Username: tebogo, ID Number: 8012130257088, Password: CFcrtLFi
+Username: Yonela, ID Number: 1231231231231, Password: ymWzQY9L
+Username: Gugu, ID Number: 98121322550, Password: UkZDTCta

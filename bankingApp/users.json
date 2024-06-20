@@ -3,5 +3,17 @@
     "Admin": {
         "id_number": "12345678910",
         "password": "T4cbznWY"
+    },
+    "tebogo": {
+        "id_number": "8012130257088",
+        "password": "CFcrtLFi"
+    },
+    "Yonela": {
+        "id_number": "1231231231231",
+        "password": "ymWzQY9L"
+    },
+    "Gugu": {
+        "id_number": "98121322550",
+        "password": "UkZDTCta"
     }
 }
