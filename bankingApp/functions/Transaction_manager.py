@@ -7,7 +7,7 @@ class TransactionManager:
     def load_accounts(self):
         # Load account data from file or initialize if file doesn't exist
         try:
-            with open("Transaction.txt", "r") as file:
+            with open("Transactions.txt", "r") as file:
                 for line in file:
                     account, balance = line.strip().split(":")
                     self.accounts[account] = float(balance)
@@ -21,7 +21,7 @@ class TransactionManager:
 
     def save_accounts(self):
         # Save account data to file
-        with open("Transaction.txt", "w") as file:
+        with open("Transactions.txt", "w") as file:
             for account, balance in self.accounts.items():
                 file.write(f"{account}:{balance}\n")
 

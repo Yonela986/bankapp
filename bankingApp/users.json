@@ -15,5 +15,24 @@
     "Gugu": {
         "id_number": "98121322550",
         "password": "UkZDTCta"
+    },
+    "balance": 200.0,
+    "transactions": [
+        "Deposit: +R1000.0",
+        "Withdrawal: -R500.0",
+        "Transfer to Gugu: -R100.0",
+        "Transfer to Gugu: -R100.0",
+        "Transfer to Gugu: -R100.0",
+        "Deposit: +R200.0",
+        "Deposit: +R150.0",
+        "Withdrawal: -R350.0"
+    ],
+    "Thoko": {
+        "id_number": "9012150202479",
+        "password": "ziy5h5Fe"
+    },
+    "Esi": {
+        "id_number": "2020120213252",
+        "password": "9jF42SUW"
     }
 }
