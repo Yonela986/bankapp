@@ -1,8 +1,12 @@
 {
     "": "FVS3ZvDj",
     "Admin": {
-        "id_number": "12345678910",
-        "password": "T4cbznWY"
+        "balance": 1550.0,
+        "transactions": [
+            "Deposit: +R1500.0",
+            "Deposit: +R300.0",
+            "Withdrawal: -R250.0"
+        ]
     },
     "tebogo": {
         "id_number": "8012130257088",
@@ -13,8 +17,14 @@
         "password": "ymWzQY9L"
     },
     "Gugu": {
-        "id_number": "98121322550",
-        "password": "UkZDTCta"
+        "balance": 370.0,
+        "transactions": [
+            "Deposit: +R1500.0",
+            "Deposit: +R250.0",
+            "Transfer to Admin: -R300.0",
+            "Transfer to Admin: -R300.0",
+            "Withdrawal: -R780.0"
+        ]
     },
     "balance": 200.0,
     "transactions": [
@@ -28,11 +38,35 @@
         "Withdrawal: -R350.0"
     ],
     "Thoko": {
-        "id_number": "9012150202479",
-        "password": "ziy5h5Fe"
+        "balance": 0
     },
     "Esi": {
-        "id_number": "2020120213252",
-        "password": "9jF42SUW"
+        "balance": 1200.0,
+        "transactions": [
+            "Deposit: +R1000.0",
+            "Deposit: +R200.0"
+        ]
+    },
+    "username": {
+        "balance": 0
+    },
+    "Zi": {
+        "balance": 0
+    },
+    "Ezi": {
+        "balance": 755.0,
+        "transactions": [
+            "Deposit: +R1000.0",
+            "Deposit: +R255.0",
+            "Withdrawal: -R500.0"
+        ]
+    },
+    "Tebza": {
+        "balance": 690.0,
+        "transactions": [
+            "Deposit: +R1000.0",
+            "Deposit: +R350.0",
+            "Withdrawal: -R660.0"
+        ]
     }
 }

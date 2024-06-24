@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
-from Transaction_manager import TransactionManager
+from Transaction_manager import TransactionManager 
 import json
+
 
 class BankingApp(tk.Tk):
     def __init__(self, username):
@@ -9,45 +10,57 @@ class BankingApp(tk.Tk):
         self.username = username
         self.title(f"Banking App - Welcome, {username}")
         self.geometry("400x300")
- #Load user data
-        self.user_data =  self.load_user_data()
-        if self.user_data:
-            #Initialize Transaction Manager 
+        #Load user data
+        self.user_data = self.load_user_data()
+    
+    # Ensure user_data is a dictionary
+        if not isinstance(self.user_data, dict):
+         self.user_data = {"balance": 0}
+    
+    # Ensure balance exists
+        if 'balance' not in self.user_data:
+          self.user_data['balance'] = 0
+    
+    # Initialize Transaction Manager 
+        try:
             self.transaction_manager = TransactionManager()
             self.transaction_manager.load_accounts()
-            
-            if 'balance' not in self.user_data:
-                self.user_data['balance'] = -100
-            
-                self.create_widgets()
-        else:
-            messagebox.showerror("Error", "Failed to load user data.")
-            self.destroy()
+        except Exception as e:
+           print(f"Error initializing TransactionManager: {e}")
+        # You might want to show a messagebox here as well
+    
+        self.save_user_data()  # Save the initial data
+        self.create_widgets()
+       
     def load_user_data(self):
         user_data = {}
         try:
             with open("users.json", "r") as file:
                 try:
-                    user_data = json.load(file)
-                    if not isinstance(user_data, dict):
+                    all_user_data = json.load(file)
+                    if not isinstance(all_user_data, dict):
                         messagebox.showerror("Error", "Invalid JSON format in user data file.")
-                        user_data = {}
+                    else:
+                        user_data = all_user_data.get(self.username, {})
                 except json.JSONDecodeError:
                     messagebox.showerror("Error", "Invalid JSON format in user data file.")
-                    user_data = {}
         except FileNotFoundError:
-            messagebox.showerror("Error", "User data file not found.")
-        return user_data
+                messagebox.showerror("Error", "User data file not found.")
+                return user_data
     def save_user_data(self):
-        if users is None:
-            users = {self.username: self.user_data}
         try:
-            with open("users.json", "w") as file:
-                json.dump(self.user_data, file, indent=4)
-        except FileNotFoundError:
-            messagebox.showerror("Error", "User data file not found.")
+            with open("users.json", "r") as file:
+             all_users_data = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            all_users_data = {}
+    
+        all_users_data[self.username] = self.user_data
+    
+        with open("users.json", "w") as file:
+            json.dump(all_users_data, file, indent=4)
+       
     def create_widgets(self):
-       # Labels
+        # Labels
         self.label_welcome = tk.Label(self, text=f"Welcome, {self.username}!", font=("Arial", 18))
         self.label_welcome.pack(pady=10)
 
@@ -68,6 +81,18 @@ class BankingApp(tk.Tk):
         self.btn_view_transactions = tk.Button(self, text="View Transactions", command=self.view_transactions)
         self.btn_view_transactions.pack(pady=5)
 
+    #   # Scrollbar for transaction listbox
+    #     scrollbar = tk.Scrollbar(self.frame_transactions, orient=tk.VERTICAL, command=self.listbox_transactions.yview)
+    #     scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+    #     self.listbox_transactions.config(yscrollcommand=scrollbar.set)
+
+        # Load transactions button
+        btn_load_transactions = tk.Button(self, text="Load Transactions", command=self.load_transactions)
+        btn_load_transactions.pack(pady=10)
+
+        # Download transactions button
+        btn_download_transactions = tk.Button(self, text="Download Transactions", command=self.download_transactions)
+        btn_download_transactions.pack()
         
     def open_deposit_page(self):
         deposit_page = DepositPage(self)
@@ -88,16 +113,20 @@ class BankingApp(tk.Tk):
         else:
             transaction_details = "\n".join(transactions)
             messagebox.showinfo("Transactions", transaction_details)
-    def deduct_registration_fee(self):
-        # Deduct registration fee from user's balance
-        registration_fee = 100
-        self.user_data['balance'] -= registration_fee
-        self.save_user_data()
-        # amount = 100
-        # transaction = f"Registration Fee: -R{amount}"
-        # self.user_data.setdefault("transactions", []).append(transaction)
-        # self.save_user_data({self.username: self.user_data})
-        # self.label_balance.config(text=f"Available Balance: R{self.user_data['balance'] + amount}")
+    def load_transactions(self):
+        self.listbox_transactions.delete(0, tk.END)
+        transactions = self.transaction_manager.transaction_history
+        for transaction in transactions:
+            self.listbox_transactions.insert(tk.END, f"{transaction['transaction_type']} - ${transaction['amount']} ({transaction['timestamp']})")
+
+    def download_transactions(self):
+        transactions_content = self.transaction_manager.download_transaction_history()
+        filename = f"{self.username}_TransactionHistory.txt"
+        with open(filename, "w") as file:
+            file.write(transactions_content)
+        messagebox.showinfo("Download", f"Transaction history downloaded to {filename}")
+        
+
 class DepositPage(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
@@ -323,7 +352,10 @@ class TransferPage(tk.Toplevel):
         except FileNotFoundError:
             messagebox.showerror("Error", "User data file not found.")
 
+        
 if __name__ == "__main__":
     username = "username"
-    login_page = BankingApp(username)
-    login_page.mainloop()
+    app = BankingApp(username)
+    app.mainloop()
+    
+    

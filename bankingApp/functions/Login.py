@@ -1,8 +1,8 @@
+import random
+import string
 import tkinter as tk
 from tkinter import ttk, messagebox
 import json
-import random
-import string
 from User_Manager import RegistrationPage  
 from Banking_App import BankingApp  
 
@@ -63,9 +63,9 @@ class LoginPage(tk.Tk):
         self.btn_signup = tk.Button(self.main_frame, text="Sign Up", width=10, command=self.signup)
         self.btn_signup.pack()
         
-        #   # Forgot Password button
-        # self.btn_forgot_password = tk.Button(self.main_frame, text="Forgot Password?", width=15, command=self.forgot_password)
-        # self.btn_forgot_password.pack(pady=10)
+        # Forgot Password button
+        self.btn_forgot_password = tk.Button(self.main_frame, text="Forgot Password?", width=15, command=self.forgot_password)
+        self.btn_forgot_password.pack(pady=10)
 
     def login(self):
         username = self.entry_username.get().strip()
@@ -75,15 +75,21 @@ class LoginPage(tk.Tk):
             with open("users.json", "r") as file:
                 users = json.load(file)
 
-                if username in users and users[username]["password"] == password:
-                    messagebox.showinfo("Login Successful", f"Welcome, {username.capitalize()}!")
-                    self.destroy()  # Close the login window
-                    # Add your code here to open the main application or another window
-                    app = BankingApp(username)  # Instantiate BankingApp with username
-                    app.mainloop()
+                if username in users:
+                    if "password" in users[username] and users[username]["password"] == password:
+                        messagebox.showinfo("Login Successful", f"Welcome, {username.capitalize()}!")
+                        self.destroy()  # Close the login window
+                        # Add your code here to open the main application or another window
+                        app = BankingApp(username)  # Instantiate BankingApp with username
+                        app.mainloop()
+                    else:
+                        messagebox.showerror("Login Failed", "Invalid username or password.")
+                        # Clear the password entry
+                        self.entry_password.delete(0, tk.END)
                 else:
                     messagebox.showerror("Login Failed", "Invalid username or password.")
-                    # Clear the password entry
+                    # Clear both username and password entries
+                    self.entry_username.delete(0, tk.END)
                     self.entry_password.delete(0, tk.END)
 
         except FileNotFoundError:
@@ -98,35 +104,37 @@ class LoginPage(tk.Tk):
         registration_page = RegistrationPage(self)
         registration_page.mainloop()
         
-    # def forgot_password(self):
-    #     username = self.entry_username.get().strip()
+    def forgot_password(self):
+        username = self.entry_username.get().strip()
 
-    # try:
-    #     with open("users.json", "r+") as file:
-    #         try:
-    #             users = json.load(file)
-    #             if not isinstance(users, dict):
-    #                 users = {}  # Initialize as empty dictionary if loaded data is not a dictionary
-    #         except (json.JSONDecodeError, ValueError):
-    #             users = {}  # Handle cases where file is empty or not valid JSON
+        try:
+            with open("users.json", "r+") as file:
+                try:
+                    users = json.load(file)
+                    if not isinstance(users, dict):
+                        users = {}  # Initialize as empty dictionary if loaded data is not a dictionary
+                except (json.JSONDecodeError, ValueError):
+                    users = {}  # Handle cases where file is empty or not valid JSON
 
-    #         if username in users: # type: ignore
-    #             # Generate a new random password
-    #             new_password = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(8))
-    #             users[username]["password"] = new_password # type: ignore
+                if username in users:
+                    # Generate a new random password
+                    new_password = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(8))
+                    users[username]["password"] = new_password
 
-    #             # Update users.json with new password
-    #             file.seek(0)
-    #             json.dump(users, file, indent=4)
-    #             file.truncate()
+                    # Update users.json with new password
+                    file.seek(0)
+                    json.dump(users, file, indent=4)
+                    file.truncate()
 
-    #             # Show the new password to the user
-    #             messagebox.showinfo("New Password Generated", f"Your new password is: {new_password}")
-    #         else:
-    #             messagebox.showerror("Username not found", "Username does not exist. Please enter a valid username.")
+                    # Show the new password to the user
+                    messagebox.showinfo("New Password Generated", f"Your new password is: {new_password}")
+                else:
+                    messagebox.showerror("Username not found", "Username does not exist. Please enter a valid username.")
 
-    # except FileNotFoundError:
-    #     messagebox.showerror("Error", "User database not found.")
+        except FileNotFoundError:
+            messagebox.showerror("Error", "User database not found.")
+
+
 
 if __name__ == "__main__":
     login_page = LoginPage()

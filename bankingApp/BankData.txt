@@ -5,3 +5,6 @@ Username: Yonela, ID Number: 1231231231231, Password: ymWzQY9L
 Username: Gugu, ID Number: 98121322550, Password: UkZDTCta
 Username: Thoko, ID Number: 9012150202479, Password: ziy5h5Fe
 Username: Esi, ID Number: 2020120213252, Password: 9jF42SUW
+Username: Zi, ID Number: 8812130201422, Password: obdll5DX
+Username: Ezi, ID Number: 89120811011002, Password: AVGFCrEq
+Username: Tebza, ID Number: 9602030021101, Password: Fe9lNXNZ
