@@ -6,7 +6,8 @@
             "Deposit: +R1500.0",
             "Deposit: +R300.0",
             "Withdrawal: -R250.0"
-        ]
+        ],
+        "password": "mAfscDZP"
     },
     "tebogo": {
         "id_number": "8012130257088",
@@ -68,5 +69,136 @@
             "Deposit: +R350.0",
             "Withdrawal: -R660.0"
         ]
+    },
+    "Andi": {
+        "balance": 3150.0,
+        "transactions": [
+            "Deposit: +R1500.0",
+            "Deposit: +R2500.0",
+            "Withdrawal: -R250.0",
+            "Withdrawal: -R600.0"
+        ]
+    },
+    "Lisi": {
+        "balance": 790.0,
+        "transactions": [
+            "Deposit: +R750.0",
+            "Deposit: +R-10.0",
+            "Deposit: +R-0.0",
+            "Deposit: +R150.0",
+            "Withdrawal: -R0.0",
+            "Withdrawal: -R100.0"
+        ]
+    },
+    "Andile": {
+        "balance": 1220.0,
+        "transactions": [
+            "Deposit: +R800.0",
+            "Withdrawal: -R500.0",
+            "Deposit: +R920.0"
+        ]
+    },
+    "Wezo": {
+        "balance": 4850.0,
+        "transactions": [
+            "Deposit: +R5000.0",
+            "Deposit: +R250.0",
+            "Withdrawal: -R400.0"
+        ]
+    },
+    "Wendy": {
+        "balance": 3620.0,
+        "transactions": [
+            "Deposit: +R8000.0",
+            "Deposit: +R-500.0",
+            "Deposit: +R600.0",
+            "Withdrawal: -R980.0",
+            "Withdrawal: -R3500.0"
+        ]
+    },
+    "Wendie": {
+        "balance": 9748.0,
+        "transactions": [
+            "Deposit: +R10000.0",
+            "Withdrawal: -R252.0"
+        ]
+    },
+    "Sino": {
+        "balance": 650.0,
+        "transactions": [
+            "Deposit: +R500.0",
+            "Deposit: +R650.0",
+            "Withdrawal: -R500.0"
+        ]
+    },
+    "sino": {
+        "balance": 2917.0,
+        "transactions": [
+            "Deposit: +R3000.0",
+            "Deposit: +R250.0",
+            "Withdrawal: -R333.0"
+        ]
+    },
+    "yonela": {
+        "balance": 1510.0,
+        "transactions": [
+            "Deposit: +R1500.0",
+            "Deposit: +R560.0",
+            "Withdrawal: -R550.0"
+        ]
+    },
+    "Tebz": {
+        "id_number": "221122001122",
+        "password": "iJehcJ6u",
+        "balance": 6000.0,
+        "transactions": [
+            "Deposit: +R2000.0",
+            "Deposit: +R5000.0",
+            "Withdrawal: -R1000.0"
+        ]
+    },
+    "Inno": {
+        "balance": 4970.0,
+        "transactions": [
+            "Deposit: +R1000.0",
+            "Deposit: +R5000.0",
+            "Withdrawal: -R500.0",
+            "Withdrawal: -R520.0",
+            "Deposit: +R-10.0"
+        ]
+    },
+    "inno": {
+        "balance": 200.0,
+        "transactions": [
+            "Deposit: +R1000.0",
+            "Withdrawal: -R100.0",
+            "Transfer to Inno: -R200.0",
+            "Transfer to Inno: -R500.0"
+        ]
+    },
+    "bongi": {
+        "id_number": "2020121121212",
+        "password": "l4LNhbcE"
+    },
+    "siwo": null,
+    "Siwo": {
+        "balance": 600.0,
+        "transactions": [
+            "Deposit: +R1000.0",
+            "Deposit: +R0.0",
+            "Deposit: +R500.0",
+            "Withdrawal: -R900.0"
+        ]
+    },
+    "siso": {
+        "balance": 1400.0,
+        "transactions": [
+            "Deposit: +R1500.0",
+            "Withdrawal: -R100.0"
+        ]
+    },
+    "wowo": {
+        "id_number": "112552246611",
+        "password": "Fb350cMH"
     }
 }

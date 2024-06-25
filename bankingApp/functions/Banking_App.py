@@ -10,10 +10,10 @@ class BankingApp(tk.Tk):
         self.username = username
         self.title(f"Banking App - Welcome, {username}")
         self.geometry("400x300")
-        #Load user data
         self.user_data = self.load_user_data()
+
     
-    # Ensure user_data is a dictionary
+    #Ensure user_data is a dictionary
         if not isinstance(self.user_data, dict):
          self.user_data = {"balance": 0}
     
@@ -27,6 +27,7 @@ class BankingApp(tk.Tk):
             self.transaction_manager.load_accounts()
         except Exception as e:
            print(f"Error initializing TransactionManager: {e}")
+           messagebox.showerror("Error",  f"Failed to initialize TransactionManager: {e}" )
         # You might want to show a messagebox here as well
     
         self.save_user_data()  # Save the initial data
@@ -42,11 +43,12 @@ class BankingApp(tk.Tk):
                         messagebox.showerror("Error", "Invalid JSON format in user data file.")
                     else:
                         user_data = all_user_data.get(self.username, {})
-                except json.JSONDecodeError:
-                    messagebox.showerror("Error", "Invalid JSON format in user data file.")
-        except FileNotFoundError:
-                messagebox.showerror("Error", "User data file not found.")
-                return user_data
+                except FileNotFoundError:
+                   messagebox.showerror("Error", "User data file not found.")
+        except json.JSONDecodeError:
+             messagebox.showerror("Error", "Invalid JSON format in user data file.")
+             return user_data
+         
     def save_user_data(self):
         try:
             with open("users.json", "r") as file:
@@ -81,10 +83,15 @@ class BankingApp(tk.Tk):
         self.btn_view_transactions = tk.Button(self, text="View Transactions", command=self.view_transactions)
         self.btn_view_transactions.pack(pady=5)
 
-    #   # Scrollbar for transaction listbox
-    #     scrollbar = tk.Scrollbar(self.frame_transactions, orient=tk.VERTICAL, command=self.listbox_transactions.yview)
-    #     scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-    #     self.listbox_transactions.config(yscrollcommand=scrollbar.set)
+        self.frame_transactions = tk.Frame(self)
+        self.frame_transactions.pack(pady=10)
+
+        self.listbox_transactions = tk.Listbox(self.frame_transactions, width=50, height=10)
+        self.listbox_transactions.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        scrollbar = tk.Scrollbar(self.frame_transactions, orient=tk.VERTICAL, command=self.listbox_transactions.yview)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.listbox_transactions.config(yscrollcommand=scrollbar.set)
 
         # Load transactions button
         btn_load_transactions = tk.Button(self, text="Load Transactions", command=self.load_transactions)
@@ -107,26 +114,30 @@ class BankingApp(tk.Tk):
         transfer_page.grab_set()
         
     def view_transactions(self):
-        transactions = self.user_data.get("transactions", [])
+        transactions = self.transaction_manager.transaction_history
         if not transactions:
             messagebox.showinfo("Transactions", "No transactions found.")
         else:
             transaction_details = "\n".join(transactions)
             messagebox.showinfo("Transactions", transaction_details)
+            
     def load_transactions(self):
         self.listbox_transactions.delete(0, tk.END)
-        transactions = self.transaction_manager.transaction_history
+        transactions = self.transaction_manager.get_transaction(self.username)
         for transaction in transactions:
-            self.listbox_transactions.insert(tk.END, f"{transaction['transaction_type']} - ${transaction['amount']} ({transaction['timestamp']})")
+            self.listbox_transactions.insert(tk.END, transaction)
+                # f"{transaction['transaction_type']} - R{transaction['amount']} ({transaction['timestamp']})")
 
     def download_transactions(self):
-        transactions_content = self.transaction_manager.download_transaction_history()
-        filename = f"{self.username}_TransactionHistory.txt"
-        with open(filename, "w") as file:
-            file.write(transactions_content)
-        messagebox.showinfo("Download", f"Transaction history downloaded to {filename}")
-        
-
+        try:
+            transactions_content = self.transaction_manager.download_transaction_history()
+            filename = f"{self.username}_TransactionHistory.txt"
+            with open(filename, "w") as file:
+               file.write(transactions_content)
+            messagebox.showinfo("Download", f"Transaction history downloaded to {filename}")
+        except Exception as e:
+            print(f"Exception: {e}")
+            messagebox.showerror("Error", f"An error occurred while downloading transaction history: {str(e)}")
 class DepositPage(tk.Toplevel):
     def __init__(self, master):
         super().__init__(master)
@@ -159,8 +170,9 @@ class DepositPage(tk.Toplevel):
             messagebox.showerror("Error", "Invalid amount. Please enter a valid number.")
             return
         # Update balance in user data
-        if 'balance' in self.master.user_data:
-            self.master.user_data["balance"] += amount
+        master = self.master
+        if 'balance' in master.user_data:
+            master.user_data["balance"] += amount
         else:
             messagebox.showerror("Error", "Balance data not found. Please reload the application.")
             return
@@ -297,7 +309,7 @@ class TransferPage(tk.Toplevel):
             return
 
         # Check if 'balance' exists in sender's user_data (should have been set by BankingApp)
-        if 'balance' in self.master.user_data:
+        if 'balance' in self.user_data:
             # Check if recipient exists in users.json
             try:
                 with open("users.json", "r") as file:
@@ -312,15 +324,15 @@ class TransferPage(tk.Toplevel):
                         return
 
                     # Check if sufficient balance
-                    if amount > self.master.user_data["balance"]:
+                    if amount > self.user_data["balance"]:
                         messagebox.showerror("Transfer Error", "Insufficient funds.")
                         return
 
                     # Update balance in sender's user data
-                    self.master.user_data["balance"] -= amount
+                    self.user_data["balance"] -= amount
                     # Update transactions for sender
                     transaction_sender = f"Transfer to {recipient}: -R{amount}"
-                    self.master.user_data.setdefault("transactions", []).append(transaction_sender)
+                    self.user_data.setdefault("transactions", []).append(transaction_sender)
 
                     # Update balance in recipient's user data
                     users[recipient]["balance"] += amount
@@ -329,7 +341,7 @@ class TransferPage(tk.Toplevel):
                     users[recipient].setdefault("transactions", []).append(transaction_recipient)
 
                     # Save updated data to JSON file
-                    self.master.save_user_data(users)
+                    self.master.save_user_data()
 
                     # Show success message
                     messagebox.showinfo("Transfer", f"Transfer of R{amount} to {recipient} successful.")
