@@ -49,7 +49,7 @@
         ]
     },
     "username": {
-        "balance": 0
+        "balance": 1000.0
     },
     "Zi": {
         "balance": 0
@@ -200,5 +200,70 @@
     "wowo": {
         "id_number": "112552246611",
         "password": "Fb350cMH"
+    },
+    "Semito": {
+        "balance": 5410.0,
+        "transactions": [
+            "Deposit: +R5000.0",
+            "Deposit: +R400.0",
+            "Withdrawal: -R-10.0"
+        ]
+    },
+    "semito": {
+        "balance": 4170.0,
+        "transactions": [
+            "Deposit: +R5000.0",
+            "Deposit: +R650.0",
+            "Withdrawal: -R700.0",
+            "Withdrawal: -R780.0"
+        ]
+    },
+    "Izzi": {
+        "balance": 0
+    },
+    "izzie": {
+        "balance": 0
+    },
+    "thoko": {
+        "balance": 2000.0,
+        "transactions": [
+            "Deposit: +R1000.0",
+            "Deposit: +R5000.0",
+            "Withdrawal: -R4000.0"
+        ]
+    },
+    "Ezile": {
+        "balance": 7700.0,
+        "transactions": [
+            "Deposit: +R8000.0",
+            "Withdrawal: -R500.0"
+        ]
+    },
+    "lizo": {
+        "balance": 4550.0
+    },
+    "Liza": {
+        "balance": 500.0
+    },
+    "Liso": {
+        "balance": 7500.0
+    },
+    "Izo": {
+        "id_number": "88112200112232",
+        "password": "NiGuIwqD"
+    },
+    "Bulelwa": {
+        "balance": 0
+    },
+    "Siya": {
+        "balance": 500.0
+    },
+    "Vuyo": {
+        "balance": 0
+    },
+    "Mandy": {
+        "id_number": "98150100110010",
+        "password": "bP6yvw2o",
+        "balance": 350.0
     }
 }

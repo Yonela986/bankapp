@@ -1,0 +1,27 @@
+[
+    {
+        "timestamp": "2024-06-26 15:30:17",
+        "account": "Mandy",
+        "amount": 1000.0,
+        "transaction_type": "deposit"
+    },
+    {
+        "timestamp": "2024-06-26 15:30:24",
+        "account": "Mandy",
+        "amount": 250.0,
+        "transaction_type": "deposit"
+    },
+    {
+        "timestamp": "2024-06-26 15:30:37",
+        "account": "Mandy",
+        "amount": 700.0,
+        "transaction_type": "withdrawal"
+    },
+    {
+        "timestamp": "2024-06-26 15:31:03",
+        "account": "Mandy",
+        "amount": 200.0,
+        "transaction_type": "transfer",
+        "to_account": "Ezile"
+    }
+]

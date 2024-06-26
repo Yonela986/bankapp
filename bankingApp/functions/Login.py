@@ -79,7 +79,6 @@ class LoginPage(tk.Tk):
                     if "password" in users[username] and users[username]["password"] == password:
                         messagebox.showinfo("Login Successful", f"Welcome, {username.capitalize()}!")
                         self.destroy()  # Close the login window
-                        # Add your code here to open the main application or another window
                         app = BankingApp(username)  # Instantiate BankingApp with username
                         app.mainloop()
                     else:
