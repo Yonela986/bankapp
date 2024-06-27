@@ -39,3 +39,4 @@ Username: Bulelwa, ID Number: 0012120011110, Password: 3fFVaoNu
 Username: Siya, ID Number: 9502020011001, Password: r1LrOYBK
 Username: Vuyo, ID Number: 950203114422441, Password: G74sROTS
 Username: Mandy, ID Number: 98150100110010, Password: bP6yvw2o
+Username: vuyo, ID Number: 9502020011100, Password: VxMGoQxr

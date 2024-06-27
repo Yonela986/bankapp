@@ -23,5 +23,11 @@
         "amount": 200.0,
         "transaction_type": "transfer",
         "to_account": "Ezile"
+    },
+    {
+        "timestamp": "2024-06-27 14:26:09",
+        "account": "vuyo",
+        "amount": 1000.0,
+        "transaction_type": "deposit"
     }
 ]

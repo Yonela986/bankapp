@@ -12,59 +12,63 @@ class LoginPage(tk.Tk):
         super().__init__()
 
         self.configure() 
-        label = ttk.Label(self, text="Please Login", font=("Helvetica", 12, "bold"))
-        label.pack(padx=10, pady=5)
-
-        # Create the main frame
-        self.main_frame = ttk.Frame(self)
-        self.main_frame.pack(fill=tk.BOTH, expand=True)
-
         # Calculate the position to center the window
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
         x_coordinate = (screen_width - 500) // 2  # Center horizontally
         y_coordinate = (screen_height - 200) // 2  # Center vertically
 
+        label = ttk.Label(self, text="Please Login", font=("Helvetica", 18, "bold"))
+        label.pack(padx=10, pady=10)        
         self.geometry(f"500x450+{x_coordinate}+{y_coordinate}")  # Set window position
 
-        # Create a style object
-        self.style = ttk.Style()
-        self.style.configure("Background.TFrame")  # Set background color for the frame
 
-        # Create the main frame with the configured style
-        self.main_frame = ttk.Frame(self, style="Background.TFrame")
+        # Create the main frame
+        self.main_frame = ttk.Frame(self)
         self.main_frame.pack(fill=tk.BOTH, expand=True)
 
+        
+        # Create a style object
+        self.style = ttk.Style()
+        self.style.configure("Background.TFrame", foreground="#637E90")  # Set background color for the frame
+        
+
         # Configure other widget styles
-        self.style.configure("TLabel", font=("Helvetica", 12))  # Set background color for labels
+        self.style.configure("TLabel", foreground="#637E90", font=("Helvetica", 30))  # Set background color for labels
         self.style.configure("TEntry", font=("Helvetica", 12))  # Set font for entry widgets
         self.style.configure("TButton", font=("Helvetica", 12))  # Set font for buttons
-
+        
+         # Create the main frame with the configured style
+        self.main_frame = ttk.Frame(self, style="Background.TFrame", padding=20)
+        self.main_frame.pack(fill=tk.BOTH, expand=True)
+        
         self.create_widgets()
 
     def create_widgets(self):
+        
+       
         # Username label and entry
-        self.label_username = tk.Label(self.main_frame, text="Username:")
+        self.label_username = tk.Label(self.main_frame, text="Username:", font=("Helvetica", 15, "bold"), foreground="#637E90")
         self.label_username.pack(pady=10)
         self.entry_username = tk.Entry(self.main_frame)
         self.entry_username.pack()
        
         # Password label and entry
-        self.label_password = tk.Label(self.main_frame, text="Password:")
+        self.label_password = tk.Label(self.main_frame, text="Password:", font=("Helvetica", 15, "bold"), foreground="#637E90")
         self.label_password.pack(pady=10)
         self.entry_password = tk.Entry(self.main_frame, show="*")
         self.entry_password.pack()
 
         # Login button
-        self.btn_login = tk.Button(self.main_frame, text="Login", width=10, command=self.login)
+        self.btn_login = tk.Button(self.main_frame, text="Login", width=10, command=self.login, font=("Helvetica", 15, "bold"), background="#6AF2F0")
         self.btn_login.pack(pady=10)
 
         # Sign Up button
-        self.btn_signup = tk.Button(self.main_frame, text="Sign Up", width=10, command=self.signup)
+        self.btn_signup = tk.Button(self.main_frame, text="Sign Up", width=10, command=self.signup, font=("Helvetica", 15, "bold"),  background="#6AF2F0")
         self.btn_signup.pack()
         
         # Forgot Password button
-        self.btn_forgot_password = tk.Button(self.main_frame, text="Forgot Password?", width=15, command=self.forgot_password)
+        self.btn_forgot_password = tk.Button(self.main_frame, text="Forgot Password?", width=15, command=self.forgot_password, font=("Helvetica", 15, "bold"),  background="#6AF2F0")
         self.btn_forgot_password.pack(pady=10)
 
     def login(self):

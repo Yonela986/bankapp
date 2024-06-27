@@ -265,5 +265,10 @@
         "id_number": "98150100110010",
         "password": "bP6yvw2o",
         "balance": 350.0
+    },
+    "vuyo": {
+        "id_number": "9502020011100",
+        "password": "VxMGoQxr",
+        "balance": 1000.0
     }
 }
